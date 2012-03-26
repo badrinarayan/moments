@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # run matlab in text mode
-exec /afs/engr.wisc.edu/apps/bin/matlab  -nojvm -nodisplay -nosplash -r "$*"
+exec /progs/MATLAB/R2011b/bin/matlab -nodesktop -nojvm -nodisplay -nosplash -r "$*"

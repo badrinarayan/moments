@@ -7,10 +7,10 @@ for n = [100,200,400,800]
 			w  = 2*pi*rand(k,1); % Uniformly spaced frequencies
 			tau = (1-1/log(n))*sqrt(n*log(n)+n*log(log(n))+n*log(2*pi))*sigma;
 			c  = nl*tau/n; % nl - noise level
+			c = c.*exp(1i*rand(size(c)));
 			signal   = sum( diag(c)*exp(1i * w * (0:n-1)),1).';
 			for i = 1:10 % iteration
 				noise    = sigma*(randn(n,1) + 1i*randn(n,1) )/sqrt(2);
-				noise(1) = real(noise(1));
 				received = signal+noise;
 				filename = strcat('input',int2str(idx),'.mat');
 				save(filename,'signal','received','w','k','n','tau','c','sigma','nl');
