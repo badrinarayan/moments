@@ -1,3 +1,5 @@
-.mat
-.log
+*.mat
+log
+errors
+stdout
 .DS_Store
