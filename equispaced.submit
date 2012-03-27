@@ -1,23 +1,23 @@
 Universe = vanilla
 Getenv = True
-+WantRHEL6Job = True
-Requirements = MachineOwner == "Optimization"
+#+WantRHEL6Job = True
+#Requirements = MachineOwner == "Optimization"
 # && TARGET.FileSystemDomain==MY.FileSystemDomain
+Requirements = TARGET.FileSystemDomain=="cae.wisc.edu" && TARGET.UidDomain == "cae.wisc.edu"
 Rank = kflops
 notify_user = badrinarayan@gmail.com
-InputDir = /data/badri/moments
-OutputDir = /data/badri/moments
-should_transfer_files = IF_NEEDED
-fileNo = $$([ProcId+1])
+InputDir = /filespace/people/b/badri/code/matlab/moments
+OutputDir = /filespace/people/b/badri/code/matlab/moments
+#should_transfer_files = YES
+fileNo = $$([MY.ProcId+1])
 Executable = $(InputDir)/condor_wrapper.sh
-Arguments = compare($(fileNo))
+Arguments = compare($(fileNo),'$(InputDir)')
 Error = $(OutputDir)/errors/err.$(Process)
 Log = $(OutputDir)/log/log.$(Process)
 Output = $(OutputDir)/stdout/stdout.$(fileNo)
 transfer_input_files = admm_ben_general.m,prony_pencil_est.m,poles_amps.m,compare.m,SpaRSA.m,cadzow_denoise.m,moment_pad.m,moment_sparsa.m,toeplitz_approx.m
-+transfer_input = "inputs/equispaced/input$(fileNo).mat"
 #transfer_output_files = output$(fileNo).mat
-WhenToTransferOutput = ON_EXIT
+#WhenToTransferOutput = ON_EXIT
 copy_to_spool = False
 
-Queue 480
+Queue 2

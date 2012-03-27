@@ -1,7 +1,7 @@
-function compare(fileNo)
-infile = strcat('input',int2str(fileNo),'.mat');
+function compare(fileNo,wd)
+infile = strcat(wd,'/inputs/equispaced/input',int2str(fileNo),'.mat');
 load(infile);
-outfile = strcat('output',int2str(fileNo),'.mat');
+outfile = strcat(wd,'/outputs/equispaced/output',int2str(fileNo),'.mat');
 
 e  = @(x) norm(signal(:)-x(:))/norm(signal);
 s  = @(x) svd(toeplitz(x));
