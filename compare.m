@@ -1,22 +1,25 @@
 function compare(fileNo,wd,experiment,sqrtc,ben)
+
 infile = strcat(wd,'/inputs/',experiment,'/input',int2str(fileNo),'.mat');
 load(infile);
+
 if sqrtc==1
-	factor = sqrt(c*n);
-	odir = strcat(experiment,'_sqrtc');
-	factor_DAST = factor;
-	factor_SAST = factor;
-	if ben==1
-		factor_DAST = 3.5*factor;
-		factor_SAST = 0.75*factor;
-		odir = strcat(experiment,'_ben');
-	end
+  factor = sqrt(c*n);
+  odir = strcat(experiment,'_sqrtc');
+  factor_DAST = factor;
+  factor_SAST = factor;
+  if ben==1
+    factor_DAST = 3.5*factor;
+    factor_SAST = 0.75*factor;
+    odir = strcat(experiment,'_ben');
+  end
 else
-	factor = sqrt(tau);
-	odir = experiment;
-	factor_DAST = factor;
-	factor_SAST = factor;
+  factor = sqrt(tau);
+  odir = experiment;
+  factor_DAST = factor;
+  factor_SAST = factor;
 end
+
 outfile = strcat(wd,'/outputs/',odir,'/output',int2str(fileNo),'.mat');
 
 e  = @(x) norm(signal(:)-x(:))/norm(signal);
@@ -49,9 +52,9 @@ if k_est == 0, k_est = 1; end
 disp(['Correct   Number of Frequencies: ' num2str(k)])
 disp(['Estimated Number of Frequencies: ' num2str(k_est)])
 
-% Cadzow:
+% Cadzow's Denoising
 tic;
-cadzow=cadzow_denoise(received,k,0);
+cadzow=cadzow_denoise(received,k);
 cadzow_time = toc;
 cadzow_mse = e(cadzow)^2;
 
@@ -64,5 +67,9 @@ fprintf('Cadzow   MSE=%.4f\n',cadzow_mse);
 [w2,c2] = poles_amps(cadzow,k);
 [w3,c3] = poles_amps(sdp_debiased,k);
 
-save(outfile,'w0','c0','w1','c1','w2','c2','w3','c3','cadzow','grid_debiased','sdp_debiased','cadzow_time','ast_time','sast_time','k_est','cadzow_mse','ast_mse','sast_mse')
+% Save to file
+save(outfile,'w0','c0','w1','c1','w2','c2','w3','c3',...
+'cadzow','grid_debiased','sdp_debiased','cadzow_time',...
+'ast_time','sast_time','k_est','cadzow_mse','ast_mse','sast_mse')
+
 end
