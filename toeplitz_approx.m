@@ -8,5 +8,5 @@ b = zeros(M+N-1,1);
 for n = -(M-1):(N-1)
 		b(M+n) = mean(diag(A,n));
 end
-Ta = T(b)
+Ta = T(b);
 end
