@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# Check output directory for completeness
+# Produces condor files for incomplete jobs
 # Run like this:
-# ./find_incomplete_jobs.py experiment
+# ./submit_incomplete_jobs.py experiment
 import glob, sys, re, os
 experiment = sys.argv[1]
 files = set(os.path.basename(x) for x in glob.glob("outputs/%s/output*mat" % experiment))

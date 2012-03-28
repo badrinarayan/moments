@@ -9,10 +9,9 @@ function x = moment_vector(n,k,varargin)
 %   frequency_spacing is 'equispaced' (default) or 'random'
 %   amplitude (default 1) is either k dimensional or a scalar
 
-opt = {'equispaced',1}
-opt(1:numvarargs) = varargin;
-[spacing,c]=optional_arguments{:}
-
+opt = {'equispaced', 1};
+opt(1:length(varargin)) = varargin;
+[spacing,c]=opt{:};
 if strcmp(spacing,'equispaced')
   w  = linspace(0,2*pi,k+1).'; w = w(:);
 elseif strcmp(spacing,'random')
