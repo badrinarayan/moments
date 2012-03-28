@@ -29,7 +29,7 @@ fprintf('Received MSE=%.4f\n',e(received)^2);
 
 % Gridding Algorithm:
 tic;
-[grid,grid_c,grid_debiased,grid_c_debiased] = moment_sparsa(received,factor_DAST*sqrt(tau),2^nextpow2(length(received)^1.6));
+[grid,grid_c,grid_debiased,grid_c_debiased] = moment_sparsa(received,factor_DAST*sqrt(tau),2^15);
 ast_time = toc;
 ast_mse  = e(grid_debiased)^2;
 
