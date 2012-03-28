@@ -1,23 +1,21 @@
 Universe = vanilla
 Getenv = True
-#+WantRHEL6Job = True
-#Requirements = MachineOwner == "Optimization"
-# && TARGET.FileSystemDomain==MY.FileSystemDomain
-Requirements = TARGET.FileSystemDomain=="cae.wisc.edu" && TARGET.UidDomain == "cae.wisc.edu"
+Requirements = TARGET.FileSystemDomain=="cae.wisc.edu" && HAS_CAE_APPS==True
 Rank = kflops
 notify_user = badrinarayan@gmail.com
 InputDir = /filespace/people/b/badri/code/matlab/moments
 OutputDir = /filespace/people/b/badri/code/matlab/moments
-#should_transfer_files = YES
 fileNo = $$([MY.ProcId+1])
-Executable = $(InputDir)/condor_wrapper.sh
-Arguments = compare($(fileNo),'$(InputDir)')
-Error = $(OutputDir)/errors/err.$(Process)
-Log = $(OutputDir)/log/log.$(Process)
-Output = $(OutputDir)/stdout/stdout.$(fileNo)
+sqrtc = 0
+Executable = condor_wrapper.sh
+Arguments = compare($(fileNo),'$(InputDir)','$(experiment)',$(sqrtc),$(ben))
+Error = $(OutputDir)/errors/$(Cluster)_$(Process).err
+Log = $(OutputDir)/log/$(Cluster)_$(Process).log
+Output = $(OutputDir)/stdout/$(Cluster)_$(Process).out
 transfer_input_files = admm_ben_general.m,prony_pencil_est.m,poles_amps.m,compare.m,SpaRSA.m,cadzow_denoise.m,moment_pad.m,moment_sparsa.m,toeplitz_approx.m
-#transfer_output_files = output$(fileNo).mat
-#WhenToTransferOutput = ON_EXIT
-copy_to_spool = False
+WhenToTransferOutput = ON_EXIT
 
-Queue 2
+experiment = equispaced
+sqrtc = 0
+ben = 0
+Queue 480

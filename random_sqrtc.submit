@@ -16,6 +16,6 @@ transfer_input_files = admm_ben_general.m,prony_pencil_est.m,poles_amps.m,compar
 WhenToTransferOutput = ON_EXIT
 
 experiment = random
-sqrtc = 0
+sqrtc = 1
 ben = 0
 Queue 480

@@ -15,7 +15,7 @@ Output = $(OutputDir)/stdout/$(Cluster)_$(Process).out
 transfer_input_files = admm_ben_general.m,prony_pencil_est.m,poles_amps.m,compare.m,SpaRSA.m,cadzow_denoise.m,moment_pad.m,moment_sparsa.m,toeplitz_approx.m
 WhenToTransferOutput = ON_EXIT
 
-experiment = random
-sqrtc = 0
-ben = 0
+experiment = equispaced
+sqrtc = 1
+ben = 1
 Queue 480

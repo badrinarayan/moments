@@ -5,7 +5,6 @@ Rank = kflops
 notify_user = badrinarayan@gmail.com
 InputDir = /filespace/people/b/badri/code/matlab/moments
 OutputDir = /filespace/people/b/badri/code/matlab/moments
-fileNo = $$([MY.ProcId+1])
 sqrtc = 0
 Executable = condor_wrapper.sh
 Arguments = compare($(fileNo),'$(InputDir)','$(experiment)',$(sqrtc),$(ben))
@@ -16,6 +15,77 @@ transfer_input_files = admm_ben_general.m,prony_pencil_est.m,poles_amps.m,compar
 WhenToTransferOutput = ON_EXIT
 
 experiment = random
-sqrtc = 0
+sqrtc = 1
 ben = 0
-Queue 480
+fileNo = 1
+Queue
+fileNo = 43
+Queue
+fileNo = 50
+Queue
+fileNo = 53
+Queue
+fileNo = 54
+Queue
+fileNo = 55
+Queue
+fileNo = 59
+Queue
+fileNo = 63
+Queue
+fileNo = 65
+Queue
+fileNo = 67
+Queue
+fileNo = 201
+Queue
+fileNo = 214
+Queue
+fileNo = 215
+Queue
+fileNo = 216
+Queue
+fileNo = 219
+Queue
+fileNo = 227
+Queue
+fileNo = 234
+Queue
+fileNo = 257
+Queue
+fileNo = 311
+Queue
+fileNo = 322
+Queue
+fileNo = 323
+Queue
+fileNo = 336
+Queue
+fileNo = 337
+Queue
+fileNo = 343
+Queue
+fileNo = 347
+Queue
+fileNo = 364
+Queue
+fileNo = 368
+Queue
+fileNo = 398
+Queue
+fileNo = 418
+Queue
+fileNo = 419
+Queue
+fileNo = 424
+Queue
+fileNo = 440
+Queue
+fileNo = 441
+Queue
+fileNo = 443
+Queue
+fileNo = 444
+Queue
+fileNo = 479
+Queue

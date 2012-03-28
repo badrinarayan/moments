@@ -5,7 +5,6 @@ Rank = kflops
 notify_user = badrinarayan@gmail.com
 InputDir = /filespace/people/b/badri/code/matlab/moments
 OutputDir = /filespace/people/b/badri/code/matlab/moments
-fileNo = $$([MY.ProcId+1])
 sqrtc = 0
 Executable = condor_wrapper.sh
 Arguments = compare($(fileNo),'$(InputDir)','$(experiment)',$(sqrtc),$(ben))
@@ -18,4 +17,47 @@ WhenToTransferOutput = ON_EXIT
 experiment = random
 sqrtc = 0
 ben = 0
-Queue 480
+fileNo = 74
+Queue
+fileNo = 79
+Queue
+fileNo = 108
+Queue
+fileNo = 152
+Queue
+fileNo = 205
+Queue
+fileNo = 259
+Queue
+fileNo = 307
+Queue
+fileNo = 347
+Queue
+fileNo = 352
+Queue
+fileNo = 354
+Queue
+fileNo = 367
+Queue
+fileNo = 375
+Queue
+fileNo = 382
+Queue
+fileNo = 383
+Queue
+fileNo = 395
+Queue
+fileNo = 423
+Queue
+fileNo = 454
+Queue
+fileNo = 459
+Queue
+fileNo = 468
+Queue
+fileNo = 473
+Queue
+fileNo = 476
+Queue
+fileNo = 479
+Queue
