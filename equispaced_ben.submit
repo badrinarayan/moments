@@ -12,7 +12,7 @@ Arguments = compare($(fileNo),'$(InputDir)','$(experiment)',$(sqrtc),$(ben))
 Error = $(OutputDir)/errors/$(Cluster)_$(Process).err
 Log = $(OutputDir)/log/$(Cluster)_$(Process).log
 Output = $(OutputDir)/stdout/$(Cluster)_$(Process).out
-transfer_input_files = admm_ben_general.m,prony_pencil_est.m,poles_amps.m,compare.m,SpaRSA.m,cadzow_denoise.m,moment_pad.m,moment_sparsa.m,toeplitz_approx.m
+transfer_input_files = admm_ben_general.m,prony_pencil_est.m,poles_amps.m,compare.m,SpaRSA.m,cadzow_denoise.m,moment_pad.m,moment_sparsa.m,toeplitz_approx.m,T.m,invT.m
 WhenToTransferOutput = ON_EXIT
 
 experiment = equispaced
