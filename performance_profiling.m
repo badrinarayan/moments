@@ -3,7 +3,7 @@ function performance_profiling(experiment)
 	ast_mses = [];
 	sast_mses = [];
 	cadzow_mses = [];
-	for fileNo = 1:360
+	for fileNo = 1:480
 		fileName = strcat('outputs/',experiment,'/output',int2str(fileNo),'.mat');
 		load(fileName);
 		ast_mses = [ast_mses; ast_mse];
@@ -17,10 +17,10 @@ function performance_profiling(experiment)
 	t_max = ceil(max([r_ast;r_cadzow;r_sast]));
 	t_max = 10;
 	t = linspace(1,t_max);
-	plot(t,arrayfun(@(x)sum(r_ast<x)/360,t),'k-',t,arrayfun(@(x)sum(r_sast<x)/360,t),'k:',t,arrayfun(@(x)sum(r_cadzow<x)/360,t),'k--','LineWidth',1.5);
+	plot(t,arrayfun(@(x)sum(r_sast<x)/360,t),'k-',t,arrayfun(@(x)sum(r_ast<x)/360,t),'k:',t,arrayfun(@(x)sum(r_cadzow<x)/360,t),'k--','LineWidth',1.5);
 	axis([1 t_max 0 1])
 	%[h,childObjs] = legend('DAST','Cadzow','Location','SouthEast');
-	[h,childObjs] = legend('      DAST','      SAST','      Cadzow');
+	[h,childObjs] = legend('       AST','      DAST','      Cadzow');
 	hx = xlabel('\beta');
 	hy = ylabel('P(\beta)');
 	legend(gca,'boxoff');

@@ -4,7 +4,7 @@ infile = strcat(wd,'/inputs/',experiment,'/input',int2str(fileNo),'.mat');
 load(infile);
 
 if sqrtc==1
-  factor = sqrt(c*n);
+  factor = sqrt(abs(c)*n);
   odir = strcat(experiment,'_sqrtc');
   factor_DAST = factor;
   factor_SAST = factor;
