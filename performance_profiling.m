@@ -15,9 +15,9 @@ function performance_profiling(experiment)
 	r_sast = sast_mses./r_min';
 	r_cadzow = cadzow_mses./r_min';
 	t_max = ceil(max([r_ast;r_cadzow;r_sast]));
-	t_max = 10;
+	t_max = 4;
 	t = linspace(1,t_max);
-	plot(t,arrayfun(@(x)sum(r_sast<x)/360,t),'k-',t,arrayfun(@(x)sum(r_ast<x)/360,t),'k:',t,arrayfun(@(x)sum(r_cadzow<x)/360,t),'k--','LineWidth',1.5);
+	plot(t,arrayfun(@(x)sum(r_sast<x)/480,t),'k-',t,arrayfun(@(x)sum(r_ast<x)/480,t),'k:',t,arrayfun(@(x)sum(r_cadzow<x)/480,t),'k--','LineWidth',1.5);
 	axis([1 t_max 0 1])
 	%[h,childObjs] = legend('DAST','Cadzow','Location','SouthEast');
 	[h,childObjs] = legend('       AST','      DAST','      Cadzow');
