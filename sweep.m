@@ -1,26 +1,32 @@
-function sweep(fileNo,prefix)
-infile = strcat('input',int2str(fileNo),'.mat');
-load(infile);
-outfile = strcat(prefix,int2str(fileNo),'.mat');
+function sweep(fileNo,wd,experiment,algorithm)
+  infile = strcat(wd,'/inputs/',experiment,'/input',int2str(fileNo),'.mat');
+  load(infile);
+  outfile = strcat(wd, '/sweep_',experiment,'/',algorithm,int2str(fileNo),'.mat');
 
-e  = @(x) norm(signal(:)-x(:))/norm(signal);
+  zs = [logspace(-0.5,0.5,8) 1];
+  e  = @(x) norm(signal(:)-x(:))/norm(signal);
+  
+  mses = zeros(size(zs));
+  function m = mse(z)
+    if(strcmp('algorithm','dast'))
+      [ignore,denoised] = moment_sparsa(received,z*tau,2^17);
+    elseif(strcmp('algorithm','ast'))
+      [ignore,denoised] = admm_ben_general(received,z*tau/sqrt(n));
+    else
+      error('Unknown algorithm');
+    end
+    m = e(denoised)^2;
+  end
+  
+  for i=1:length(zs)
+    fprintf('%d\n',i);
+    mses(i) = mse(zs(i));
+  end
 
-ast_mses = [];
+  [min_mse, idx] = min(mses);
+  z_opt = zs(idx);
+  tau_opt = z_opt*tau;
+  base_mse = mses(end);
 
-% Gridding Algorithm:
-taus=logspace(log10(tau)-1,log10(tau)+1,20);
-for tau0=taus
-  fprintf('.');
-  [grid,grid_c,grid_debiased,grid_c_debiased] = moment_sparsa(received,tau0,2^14);
-  mse = e(grid_debiased)^2;
-  ast_mses = [ast_mses; mse];
-end
-fprintf('\n');
-[grid,grid_c,grid_debiased,grid_c_debiased] = moment_sparsa(received,tau,2^14);
-ast_mse    = e(grid_debiased)^2;
-
-[min_mse, tau_opt_idx] = min(ast_mses);
-tau_opt = taus(tau_opt_idx);
-
-save(outfile,'ast_mses','ast_mse','taus','tau','tau_opt', 'min_mse')
+  save(outfile,'mses','min_mse','z_opt','tau','tau_opt','base_mse');
 end
