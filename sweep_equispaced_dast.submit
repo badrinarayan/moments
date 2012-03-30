@@ -11,7 +11,7 @@ Arguments = sweep($(fileNo),'$(InputDir)','$(experiment)','$(algorithm)')
 Error = $(OutputDir)/errors/$(Cluster)_$(Process).err
 Log = $(OutputDir)/log/$(Cluster)_$(Process).log
 Output = $(OutputDir)/stdout/$(Cluster)_$(Process).out
-transfer_input_files = admm_ben_general.m,SpaRSA.m,moment_pad.m,moment_sparsa.m
+transfer_input_files = admm_ben_general.m,SpaRSA.m,moment_pad.m,moment_sparsa.m,sweep.m
 WhenToTransferOutput = ON_EXIT
 
 experiment = equispaced
