@@ -1,0 +1,17 @@
+Universe = vanilla
+Getenv = True
+Requirements = TARGET.FileSystemDomain=="cae.wisc.edu" && HAS_CAE_APPS==True
+Rank = kflops
+notify_user = badrinarayan@gmail.com
+InputDir = /filespace/people/b/badri/code/matlab/moments
+OutputDir = /filespace/people/b/badri/code/matlab/moments
+fileNo = $$([MY.ProcId+1])
+Executable = condor_wrapper.sh
+Arguments = sweep_dast($(fileNo),'$(InputDir)','random')
+Error = $(OutputDir)/errors/$(Cluster)_$(Process).err
+Log = $(OutputDir)/log/$(Cluster)_$(Process).log
+Output = $(OutputDir)/stdout/$(Cluster)_$(Process).out
+transfer_input_files = SpaRSA.m,moment_pad.m,moment_sparsa.m,sweep_dast.m
+WhenToTransferOutput = ON_EXIT
+
+Queue 480
