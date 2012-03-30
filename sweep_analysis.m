@@ -24,7 +24,7 @@ for algorithm={'ast','dast'}
 				ratio(key) = [ratio(key);data.min_mse/data.base_mse];
 			else
 				z_opt(key) = [data.z_opt];
-				ratio(key) = [data.z_opt];
+				ratio(key) = [data.min_mse/data.base_mse];
 			end
 		end 
 		% Display the means in a table
