@@ -1,9 +1,9 @@
 function performance_profiling(experiment)
 % Plot the performance profile
 	ast_mses = [];
-	ast15_mses = [];
-	ast16_mses = [];
-	ast17_mses = [];
+	ast_mses15 = [];
+	ast_mses16 = [];
+	ast_mses17 = [];
 	sast_mses = [];
 	cadzow_mses = [];
 	for fileNo = 1:480
@@ -30,22 +30,21 @@ function performance_profiling(experiment)
 	t = linspace(1,t_max);
 	plot(...
 				t,arrayfun(@(x)sum(r_sast<x)/480,t),...
-				t,arrayfun(@(x)sum(r_ast<x)/480,t),...
 				t,arrayfun(@(x)sum(r_ast15<x)/480,t),...
 				t,arrayfun(@(x)sum(r_ast16<x)/480,t),...
 				t,arrayfun(@(x)sum(r_ast17<x)/480,t),...
 				t,arrayfun(@(x)sum(r_cadzow<x)/480,t)...
 	);
+	%t,arrayfun(@(x)sum(r_ast<x)/480,t),...
 	axis([1 t_max 0 1])
-	%[h,childObjs] = legend('DAST','Cadzow','Location','SouthEast');
-	[h,childObjs] = legend('       AST','      DAST','      Cadzow');
+	[h,childObjs] = legend('        AST','        DAST 2^{15}','        DAST 2^{16}','        DAST 2^{17}','        Cadzow');
 	hx = xlabel('\beta');
 	hy = ylabel('P(\beta)');
 	legend(gca,'boxoff');
-	set(h,'FontSize',18,'FontName','Times')
-	set(hx,'FontSize',24,'FontName','Times')
-	set(hy,'FontSize',24,'FontName','Times')
-	set(gca,'FontSize',18,'FontName','Times')
+	set(h,'FontSize',16,'FontName','Times')
+	set(hx,'FontSize',20,'FontName','Times')
+	set(hy,'FontSize',20,'FontName','Times')
+	set(gca,'FontSize',16,'FontName','Times')
 	lineObjs = findobj(childObjs, 'Type', 'line');
 	xCoords = get(lineObjs, 'XData') ;
 	for lineIdx = 1:length(xCoords),
