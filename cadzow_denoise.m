@@ -1,7 +1,12 @@
-function x = cadzow_denoise(x, r)
+function x = cadzow_denoise(y, r, varargin)
 % Alternately project onto Rank-r Grasmmanian manifold
 % and space of Toeplitz matrices.
-
+x = y;
+if nargin==2
+  debias=0;
+else
+  debias = varargin{1};
+end
 max_iterations = 20;
 tol = 1e-6;
 ratio = tol;
@@ -21,4 +26,9 @@ for iter=1:max_iterations
 end
 
 x = invT(X,n);
+if debias==1
+  [w,ignore] = poles_amps(x,r);
+  U = exp( 1i*(0:(n-1))'*w');
+  x = U*(U\y);
+end
 end

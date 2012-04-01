@@ -3,24 +3,7 @@ function compare(fileNo,wd,experiment,sqrtc,ben)
 infile = strcat(wd,'/inputs/',experiment,'/input',int2str(fileNo),'.mat');
 load(infile);
 
-if sqrtc==1
-  factor = sqrt(abs(c)*n);
-  odir = strcat(experiment,'_sqrtc');
-  factor_DAST = factor;
-  factor_SAST = factor;
-  if ben==1
-    factor_DAST = 3.5*factor;
-    factor_SAST = 0.75*factor;
-    odir = strcat(experiment,'_ben');
-  end
-else
-  factor = sqrt(tau);
-  odir = experiment;
-  factor_DAST = factor;
-  factor_SAST = factor;
-end
-
-outfile = strcat(wd,'/outputs/',odir,'/output',int2str(fileNo),'.mat');
+outfile = strcat(wd,'/outputs/',experiment,'/output',int2str(fileNo),'.mat');
 
 e  = @(x) norm(signal(:)-x(:))/norm(signal);
 s  = @(x) svd(toeplitz(x));
@@ -29,7 +12,7 @@ fprintf('Received MSE=%.4f\n',e(received)^2);
 
 % Gridding Algorithm:
 tic;
-[grid,grid_c,grid_debiased,grid_c_debiased] = moment_sparsa(received,factor_DAST*sqrt(tau),2^15);
+[grid,grid_c,grid_debiased,grid_c_debiased] = moment_sparsa(received,tau,2^13);
 ast_time = toc;
 ast_mse  = e(grid_debiased)^2;
 
@@ -37,7 +20,7 @@ disp(['Atomic Softthreshold Time : ' num2str(ast_time)]);
 fprintf('Gridding MSE=%.4f\n',ast_mse);
 
 tic;
-[sdp_output,sdp_debiased] = admm_ben_general(received,factor_SAST*sqrt(tau/n));
+[sdp_output,sdp_debiased] = admm_ben_general(received,tau/sqrt(n));
 sast_time = toc;
 sast_mse    = e(sdp_debiased)^2;
 
@@ -54,7 +37,7 @@ disp(['Estimated Number of Frequencies: ' num2str(k_est)])
 
 % Cadzow's Denoising
 tic;
-cadzow=cadzow_denoise(received,k);
+cadzow=cadzow_denoise(received,k,1);
 cadzow_time = toc;
 cadzow_mse = e(cadzow)^2;
 

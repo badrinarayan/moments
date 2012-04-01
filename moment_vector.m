@@ -1,4 +1,4 @@
-function x = moment_vector(n,k,varargin)
+function [x,c,w] = moment_vector(n,k,varargin)
 % x = moment_vector(n,k,frequency_spacing,amplitude)
 % Generate n dimensional moment vector with
 % x_{m+1} = sum{l=1}^{k} c_l exp(i 2 pi w_l m)
@@ -9,11 +9,12 @@ function x = moment_vector(n,k,varargin)
 %   frequency_spacing is 'equispaced' (default) or 'random'
 %   amplitude (default 1) is either k dimensional or a scalar
 
-opt = {'equispaced', 1};
+opt = {'equispaced', ones(k,1)};
 opt(1:length(varargin)) = varargin;
 [spacing,c]=opt{:};
 if strcmp(spacing,'equispaced')
-  w  = linspace(0,2*pi,k+1).'; w = w(:);
+  w  = linspace(0,2*pi,k+1).';
+  w=w(1:k);
 elseif strcmp(spacing,'random')
   w  = 2*pi*rand(k,1);
 else

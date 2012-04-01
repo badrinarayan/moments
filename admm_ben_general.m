@@ -1,4 +1,4 @@
-function [x,x_debias] = admm_ben(y,mu)
+function [x,x_debias,poles,c2] = admm_ben(y,mu)
 T0=clock;
 y = y(:);
 n = length(y);
@@ -103,8 +103,14 @@ end
 [U,E] = eig(0.5*toeplitz(q)+0.5*toeplitz(q)');
 e = diag(E);
 idx = (e>debias_tol*max(e)); 
+[poles, amplitudes ] = poles_amps(q, sum(idx) );
+U2 = exp( 1i*(0:(n-1))'*poles');
+c2 = U2\y;
+x_debias_prony = U2*c2;
+% else
 c = U(:,idx)\y;
 x_debias = U(:,idx)*c;
+% end
 
 
 function T = toeplitz_adjoint(A)
